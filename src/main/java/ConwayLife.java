@@ -1,20 +1,26 @@
 class ConwayLife {
     static int[][] getGeneration(int[][] glider, int i) {
-        int x = glider.length;
-        int y = glider[0].length;
-        int[][] result = new int[x][y];
+        int[][] newGlider = glider;
+
+        while (i > 0) {
+            int x = newGlider.length;
+            int y = newGlider[0].length;
+            int[][] result = new int[x][y];
 
 
-        for (int dimension = 0; dimension < x; dimension++) {
-            for (int size = 0; size < y; size++) {
-                if (glider[dimension][size]==0){
-                    result[dimension][size]=findNewDeadCellStatus(glider,dimension,size);
-                } else {
-                    result[dimension][size]=findNewLivingCellStatus(glider,dimension,size);
+            for (int dimension = 0; dimension < x; dimension++) {
+                for (int size = 0; size < y; size++) {
+                    if (newGlider[dimension][size] == 0) {
+                        result[dimension][size] = findNewDeadCellStatus(newGlider, dimension, size);
+                    } else {
+                        result[dimension][size] = findNewLivingCellStatus(newGlider, dimension, size);
+                    }
                 }
             }
+            newGlider = result;
+            i--;
         }
-        return result;
+        return newGlider;
     }
 
     static int findNewLivingCellStatus(int[][] glider,int x, int y){
